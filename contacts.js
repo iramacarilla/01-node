@@ -1,13 +1,14 @@
 
 const fs = require("fs").promises;
 const path = require("path");
+const  {uuid}  = require('uuidv4');
 
 const contactsPath = path.join(__dirname + "/db/contacts.json");
 
 function listContacts() {
     console.log('List of contacts:')
     fs.readFile(contactsPath)
-    .then((contacts) => console.table(JSON.parse(contacts)))
+    .then((contacts) => console.log(JSON.parse(contacts)))
     .catch((err)=>console.log(err))
 }
 
@@ -37,7 +38,7 @@ function addContact(name, email, phone) {
                     JSON.stringify([
                         ...contacts,
                         {
-                            id: contacts.length + 1,
+                            id: uuid(),
                             name: name,
                             email: email,
                             phone: phone,
